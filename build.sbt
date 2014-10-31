@@ -23,8 +23,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka"   %%  "akka-actor"        % "2.3.6",
   "org.slf4j"           %   "slf4j-simple"      % "1.7.2",
   "com.typesafe.slick"  %%  "slick"             % "2.1.0",
-  "com.h2database"      %   "h2"                % "1.4.182",
-  "postgresql"          %   "postgresql"        % "9.1-901.jdbc4"
+  "com.h2database"      %   "h2"                % "1.4.182"
 )
 
 javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
