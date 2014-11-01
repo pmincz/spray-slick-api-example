@@ -4,6 +4,7 @@ import akka.actor.{Props, ActorSystem}
 import akka.io.IO
 import spray.can.Http
 import spray.slick.example.config.Configuration
+import spray.slick.example.rest.util.RestServiceActor
 
 /**
  * Created by pmincz on 31/10/14.

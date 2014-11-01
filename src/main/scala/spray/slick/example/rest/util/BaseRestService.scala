@@ -3,7 +3,7 @@ package spray.slick.example.rest.util
 import org.json4s.DefaultFormats
 import spray.httpx.Json4sSupport
 import spray.routing._
-import spray.slick.example.domain.util.SortPageInfo
+import spray.slick.example.domain.util.{UtilsError, SortPageInfo}
 
 /**
  * Created by pmincz on 31/10/14.
@@ -11,7 +11,7 @@ import spray.slick.example.domain.util.SortPageInfo
  * All the traits that have the routes extends from this trait
  * It has the executionContext & the DefaultFormats for the json marshalling
  */
-trait BaseRestService extends HttpService with Json4sSupport with Directives {
+trait BaseRestService extends HttpService with Json4sSupport with Directives with UtilsError {
 
   implicit def executionContext = actorRefFactory.dispatcher
 

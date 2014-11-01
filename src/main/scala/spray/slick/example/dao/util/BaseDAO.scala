@@ -13,7 +13,7 @@ import spray.slick.example.domain.util._
  */
 abstract class BaseDAO[T <: BaseEntity : ClassTag, DB <: BaseTable[T]](idName: String) extends UtilsError {
 
-  val db = Database.forURL("jdbc:h2:mem:servicetestdb", driver = "org.h2.Driver")
+  val db = Database.forURL("jdbc:h2:mem:test1;MODE=MYSQL;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver")
 
   val tableQuery: TableQuery[DB]
 
@@ -48,6 +48,13 @@ abstract class BaseDAO[T <: BaseEntity : ClassTag, DB <: BaseTable[T]](idName: S
     } catch {
       case e: SQLException =>
         Left(databaseError(e))
+    }
+  }
+
+  def getTotal(params: Map[String, String]): Int = {
+    db withSession { implicit session =>
+      val query = for {f <- tableQuery} yield (f.column[Long](idName))
+      query.list.size
     }
   }
 
