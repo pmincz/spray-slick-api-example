@@ -21,9 +21,11 @@ libraryDependencies ++= Seq(
   "org.json4s"          %%  "json4s-native"     % "3.2.10",
   "org.json4s"          %%  "json4s-jackson"    % "3.2.10",
   "com.typesafe.akka"   %%  "akka-actor"        % "2.3.6",
-  "org.slf4j"           %   "slf4j-simple"      % "1.7.2",
+  //"org.slf4j"           %   "slf4j-simple"      % "1.7.2",
   "com.typesafe.slick"  %%  "slick"             % "2.1.0",
-  "com.h2database"      %   "h2"                % "1.4.182"
+  "com.h2database"      %   "h2"                % "1.4.182",
+  "com.typesafe.akka"   %% "akka-slf4j"         % "2.3.6",
+  "ch.qos.logback"      % "logback-classic"     % "1.0.13"
 )
 
 javacOptions ++= Seq("-source", "1.7", "-target", "1.7")

@@ -1,6 +1,7 @@
 package spray.slick.example.dao.util
 
 import java.sql._
+import spray.slick.example.config.DbProvider
 import spray.slick.example.domain.util.{SortPageInfo, UtilsError, BaseTable, BaseEntity}
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
@@ -13,7 +14,7 @@ import spray.slick.example.domain.util._
  */
 abstract class BaseDAO[T <: BaseEntity : ClassTag, DB <: BaseTable[T]](idName: String) extends UtilsError {
 
-  val db = Database.forURL("jdbc:h2:mem:test1;MODE=MYSQL;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver")
+  val db = DbProvider.db
 
   val tableQuery: TableQuery[DB]
 
@@ -103,6 +104,17 @@ abstract class BaseDAO[T <: BaseEntity : ClassTag, DB <: BaseTable[T]](idName: S
       db withSession { implicit session =>
         val query = for {records <- tableQuery.filter(_.column[Long](idName) === id)} yield (records)
         Right(query.delete)
+      }
+    } catch {
+      case e: SQLException =>
+        Left(databaseError(e))
+    }
+  }
+
+  def create: Either[Error, Unit] = {
+    try {
+      db withSession { implicit session =>
+        Right(tableQuery.ddl.create)
       }
     } catch {
       case e: SQLException =>
