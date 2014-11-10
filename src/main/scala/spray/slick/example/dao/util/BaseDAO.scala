@@ -55,7 +55,7 @@ abstract class BaseDAO[T <: BaseEntity : ClassTag, DB <: BaseTable[T]](idName: S
   def getTotal(params: Map[String, String]): Int = {
     db withSession { implicit session =>
       val query = for {f <- tableQuery} yield (f.column[Long](idName))
-      query.list.size
+      query.length.run
     }
   }
 
